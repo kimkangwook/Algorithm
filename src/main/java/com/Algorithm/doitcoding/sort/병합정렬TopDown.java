@@ -30,7 +30,7 @@ public class 병합정렬TopDown {
         int idx = left;
 
         while (l<=mid && r<=right) {
-            if (l<=right) {
+            if (a[l]<=a[r]) {
                 sorted[idx] = a[l];
                 l++;
                 idx++;

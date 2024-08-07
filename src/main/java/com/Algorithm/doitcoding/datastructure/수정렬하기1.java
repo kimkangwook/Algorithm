@@ -3,38 +3,79 @@ package com.Algorithm.doitcoding.datastructure;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Scanner;
 
 public class 수정렬하기1 {
+    static int[] sorted;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int i = Integer.parseInt(br.readLine());
-        int[] arr = new int[i];
+        int N = Integer.parseInt(br.readLine());
 
-        for (int j=0;j<i;j++) {
-            arr[j] = Integer.parseInt(br.readLine());
+        int[] unsorted = new int[N];
+        for (int i=0;i<N;i++) {
+            unsorted[i] = Integer.parseInt(br.readLine());
         }
 
-        // 버블 정렬
-        // 라운드 수는 배열의 size-1
-        for (int k=1;k<i;k++) {
+        // 병합정렬 TopDown
+        병합정렬(unsorted);
 
-            for (int l=0;l<i-k;l++) {
-                if (arr[l]>arr[l+1]) {
-                    int temp = arr[l];
-                    arr[l] = arr[l+1];
-                    arr[l+1] = temp;
-                }
+        for (int i=0;i<N;i++) {
+            System.out.println(unsorted[i]);
+        }
 
+        sorted = null;
+    }
+
+    public static void 병합정렬(int[] unsorted) {
+        sorted = new int[unsorted.length];
+        병합정렬(unsorted, 0, unsorted.length - 1);
+    }
+
+    public static void 병합정렬(int[] unsorted, int left, int right) {
+
+        if (left==right) return;
+
+        int mid = (left + right) / 2;
+
+        병합정렬(unsorted, left, mid);
+        병합정렬(unsorted, mid + 1, right);
+        병합(unsorted, left, mid, right);
+    }
+
+    public static void 병합(int[] unsorted, int left, int mid, int right) {
+        int l = left;
+        int r = mid + 1;
+        int idx = left;
+
+        while (l<=mid && r<=right) {
+            if (unsorted[l]<=unsorted[r]) {
+                sorted[idx] = unsorted[l];
+                idx++;
+                l++;
+            } else {
+                sorted[idx] = unsorted[r];
+                idx++;
+                r++;
             }
-
         }
 
-        for (int m=0;m<i;m++) {
-            System.out.println(arr[m]);
+        if (l<=mid) {
+            while (l<=mid) {
+                sorted[idx] = unsorted[l];
+                idx++;
+                l++;
+            }
+        } else {
+            while (r<=right) {
+                sorted[idx] = unsorted[r];
+                idx++;
+                r++;
+            }
         }
 
-
+        for (int i=left;i<=right;i++) {
+            unsorted[i] = sorted[i];
+        }
     }
 
 
