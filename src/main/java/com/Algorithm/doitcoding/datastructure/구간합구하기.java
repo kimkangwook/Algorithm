@@ -13,29 +13,17 @@ public class 구간합구하기 {
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
 
-        StringBuffer sb = new StringBuffer();
-
-        int[] sum = new int[N];
+        long[] S = new long[N + 1];
         st = new StringTokenizer(br.readLine());
-
-        for (int i=0;i<N;i++) {
-            if (i==0) {
-                sum[i] = Integer.parseInt(st.nextToken());
-            } else {
-                sum[i] = sum[i - 1] + Integer.parseInt(st.nextToken());
-            }
+        for (int i=1;i<=N;i++) {
+            S[i] = S[i-1] + Long.parseLong(st.nextToken());
         }
-
-        int startIndex, endIndex;
-
         for (int i=0;i<M;i++) {
             st = new StringTokenizer(br.readLine());
-            startIndex = Integer.parseInt(st.nextToken())-1;
-            endIndex = Integer.parseInt(st.nextToken())-1;
-
-            sb.append(startIndex==0 ? (sum[endIndex]) : sum[endIndex] - sum[startIndex - 1]).append('\n');
+            int startIndex = Integer.parseInt(st.nextToken());
+            int endIndex = Integer.parseInt(st.nextToken());
+            System.out.println(S[endIndex] - S[startIndex-1]);
         }
-        System.out.println(sb);
 
     }
 }
