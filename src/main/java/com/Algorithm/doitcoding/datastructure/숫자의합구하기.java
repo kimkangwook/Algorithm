@@ -1,21 +1,38 @@
 package com.Algorithm.doitcoding.datastructure;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 
 public class 숫자의합구하기 {
 
+//    public static void main(String[] args) throws IOException {
+//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//        int N = Integer.parseInt(br.readLine());
+//        String arr = "";
+//        for (int i=0;i<N;i++) {
+//            arr += Integer.valueOf(br.read()-'0');
+//        }
+//
+//        char[] chars = arr.toCharArray();
+//        int sum=0;
+//        for (int i=0;i<chars.length;i++) {
+//            sum+=chars[i] - '0';
+//        }
+//        System.out.println(sum);
+//    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int numberSize = sc.nextInt();
-        // 입력값을 String형 변수 sNum에 저장한 후 char[]형 변수로 변환하기
+        int N = sc.nextInt();
+
         String sNum = sc.next();
-        char[] cNum = sNum.toCharArray();
+        char[] charNum = sNum.toCharArray();
         int sum = 0;
-
-        for (int i=0;i<numberSize;i++) {
-            sum += cNum[i]-'0'; // cNum[i]를 정수형으로 변환하면서 sum에 더하여 누적하기
+        for (int i=0;i<charNum.length;i++) {
+            sum += charNum[i] - '0';
         }
-
-        System.out.println("나머지 합계 : " +sum);
+        System.out.println(sum);
     }
 }

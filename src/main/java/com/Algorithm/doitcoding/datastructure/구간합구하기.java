@@ -8,25 +8,22 @@ import java.util.StringTokenizer;
 
 public class 구간합구하기 {
     public static void main(String[] args) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer stringTokenizer = new StringTokenizer(bufferedReader.readLine());
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int N = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
 
-        int size = Integer.parseInt(stringTokenizer.nextToken());
-        int questionSize = Integer.parseInt(stringTokenizer.nextToken());
-        long[] S = new long[size + 1];
-
-        stringTokenizer = new StringTokenizer(bufferedReader.readLine());
-
-        for (int i=1;i<=size;i++) {
-            S[i] = S[i-1] +Integer.parseInt(stringTokenizer.nextToken());
+        long[] S = new long[N + 1];
+        st = new StringTokenizer(br.readLine());
+        for (int i=1;i<=N;i++) {
+            S[i] = S[i-1] + Long.parseLong(st.nextToken());
+        }
+        for (int i=0;i<M;i++) {
+            st = new StringTokenizer(br.readLine());
+            int startIndex = Integer.parseInt(st.nextToken());
+            int endIndex = Integer.parseInt(st.nextToken());
+            System.out.println(S[endIndex] - S[startIndex-1]);
         }
 
-
-        for (int i=0;i<questionSize;i++) {
-            stringTokenizer = new StringTokenizer(bufferedReader.readLine());
-            int start = Integer.parseInt(stringTokenizer.nextToken());
-            int end = Integer.parseInt(stringTokenizer.nextToken());
-            System.out.println(S[end]-S[start-1]);
-        }
     }
 }
