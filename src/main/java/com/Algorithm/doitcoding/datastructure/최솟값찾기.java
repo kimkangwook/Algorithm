@@ -8,38 +8,52 @@ import java.util.StringTokenizer;
 public class 최솟값찾기 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st = new StringTokenizer(br.readLine());
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         int N = Integer.parseInt(st.nextToken());
-        int L = Integer.parseInt(st.nextToken());
+        int window = Integer.parseInt(st.nextToken());
+
         st = new StringTokenizer(br.readLine());
-        Deque<Node> mydeque = new LinkedList<>();
+        Deque<Node> deque = new LinkedList<>();
+
 
         for (int i = 0; i < N; i++) {
-            int now = Integer.parseInt(st.nextToken());
+            int number = Integer.parseInt(st.nextToken());
 
-            while(!mydeque.isEmpty() && mydeque.getLast().value > now) {
-                mydeque.removeLast();
-            }
-            mydeque.addLast(new Node(now, i));
+            Node node = new Node(i, number);
 
-            if (mydeque.getFirst().index <= i-L) {
-                mydeque.removeFirst();
+            while (!deque.isEmpty() && deque.peekLast().getNumber() > node.getNumber()) {
+                deque.pollLast();
             }
-            bw.write(mydeque.getFirst().value + " ");
+            deque.addLast(node);
+
+            if (deque.peekLast().getIndex() - deque.peekFirst().getIndex() >= window) {
+                deque.pollFirst();
+            }
+
+            // 맨앞 노드의 number 출력
+            bw.write(deque.peekFirst().getNumber() + " ");
         }
         bw.flush();
         bw.close();
-        br.close();
+    }
+}
+
+class Node {
+    private Integer index;
+
+    private Integer number;
+
+    public Node(Integer index, Integer number) {
+        this.index = index;
+        this.number = number;
     }
 
-    public static class Node {
-        public int value;
-        public int index;
+    public Integer getIndex() {
+        return this.index;
+    }
 
-        Node(int value, int index) {
-            this.value = value;
-            this.index = index;
-        }
+    public Integer getNumber() {
+        return this.number;
     }
 }
