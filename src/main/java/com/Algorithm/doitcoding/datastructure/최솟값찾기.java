@@ -8,52 +8,63 @@ import java.util.StringTokenizer;
 public class 최솟값찾기 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
         int N = Integer.parseInt(st.nextToken());
         int window = Integer.parseInt(st.nextToken());
 
         st = new StringTokenizer(br.readLine());
+
         Deque<Node> deque = new LinkedList<>();
 
+        for (int i=0;i<N;i++) {
+            int now = Integer.parseInt(st.nextToken());
 
-        for (int i = 0; i < N; i++) {
-            int number = Integer.parseInt(st.nextToken());
+            // Node 생성
+            Node newNode = new Node(i+1,now);
 
-            Node node = new Node(i, number);
-
-            while (!deque.isEmpty() && deque.peekLast().getNumber() > node.getNumber()) {
+            // 덱에 있는 마지막 요소와 크기 비교하여 작으면 마지막 요소 제거
+            while (!deque.isEmpty()&&deque.peekLast().getValue()>now) {
                 deque.pollLast();
             }
-            deque.addLast(node);
 
-            if (deque.peekLast().getIndex() - deque.peekFirst().getIndex() >= window) {
+            // 덱에 저장
+            deque.addLast(newNode);
+
+            // 첫번째와 마지막 노드의 인덱스의 차이가 window일 경우 첫번째 노드 제거
+            if (i+1-deque.peekFirst().getIndex()>=window) {
                 deque.pollFirst();
             }
 
-            // 맨앞 노드의 number 출력
-            bw.write(deque.peekFirst().getNumber() + " ");
+            bw.write(deque.peekFirst().getValue()+" ");
+
+
         }
+
         bw.flush();
         bw.close();
+
     }
 }
 
 class Node {
-    private Integer index;
+    private int index;
 
-    private Integer number;
+    private int value;
 
-    public Node(Integer index, Integer number) {
+    public Node(int index, int value) {
         this.index = index;
-        this.number = number;
+        this.value = value;
     }
 
-    public Integer getIndex() {
-        return this.index;
+    public int getIndex() {
+        return index;
     }
 
-    public Integer getNumber() {
-        return this.number;
+    public int getValue() {
+        return value;
     }
 }
+
+
