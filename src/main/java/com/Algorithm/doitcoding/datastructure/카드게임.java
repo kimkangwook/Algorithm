@@ -1,27 +1,28 @@
 package com.Algorithm.doitcoding.datastructure;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Scanner;
 
 public class 카드게임 {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());
 
-        Deque<Integer> queue = new LinkedList<>();
+        Deque deque = new LinkedList();
 
-        for (int i=N;i>=1;i--) {
-            queue.offer(i);
+        for (int i=N;i>0;i--) {
+            deque.add(i);
         }
 
-        while (queue.size()>1) {
-            // 맨 윗장 버리기
-            queue.pollLast();
-
-            // 맨 윗장을 맨 아랫장으로 집어 넣기
-            queue.addFirst(queue.pollLast());
+        while (deque.size()>1) {
+            deque.pollLast();
+            deque.addFirst(deque.pollLast());
         }
-        System.out.println(queue.pollLast());
+
+        System.out.println(deque.peek());
     }
 }
