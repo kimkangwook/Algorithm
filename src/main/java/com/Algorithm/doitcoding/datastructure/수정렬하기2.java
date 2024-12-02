@@ -20,7 +20,6 @@ public class 수정렬하기2 {
         merge_sort(arr, 0, N - 1);
         sorted = null;
 
-        // TODO: 시스템 아웃 찍기
         for (int i=0;i<N;i++) {
             System.out.println(arr[i]);
         }
