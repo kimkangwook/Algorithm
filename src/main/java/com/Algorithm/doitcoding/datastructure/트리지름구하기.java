@@ -4,37 +4,40 @@ import java.util.*;
 
 public class 트리지름구하기 {
 
-    static boolean visited[];
+    static ArrayList<Edge>[] A;
 
-    static int distance[];
+    static boolean[] visited;
 
-    static ArrayList<Edge> A[];
+    static int[] distance;
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
-        A = new ArrayList[N + 1];
-        for (int i=1;i<N+1;i++) {
-            A[i] = new ArrayList<Edge>();
-        }
 
+        A = new ArrayList[N+1];
+        visited = new boolean[N + 1];
+        distance = new int[N + 1];
 
-        for (int i=1;i<N+1;i++) {
-            int S = sc.nextInt();
+        for (int i=1;i<=N;i++) {
+            int n = sc.nextInt();
+            A[n] = new ArrayList<Edge>();
+
             while (true) {
-                int E = sc.nextInt();
-                if (E == -1)
+                int a = sc.nextInt();
+                if (a==-1) {
                     break;
-                int V = sc.nextInt();
-                A[S].add(new Edge(E, V));
+                }
+                int b = sc.nextInt();
+
+                Edge edge = new Edge(a, b);
+                A[n].add(edge);
             }
         }
-        distance = new int[N + 1];
-        visited = new boolean[N + 1];
+
         BFS(1);
         int Max = 1;
-        for (int i=2;i<N+1;i++) {
-            if (distance[Max] < distance[i]) {
+        for (int i=2;i<=N;i++) {
+            if (distance[Max]<distance[i]) {
                 Max = i;
             }
         }
@@ -43,34 +46,39 @@ public class 트리지름구하기 {
         BFS(Max);
         Arrays.sort(distance);
         System.out.println(distance[N]);
+
     }
 
-    private static void BFS(int index) {
-        Queue<Integer> queue = new LinkedList<>();
-        queue.add(index);
-        visited[index] = true;
+    public static void BFS(int i) {
+        Queue<Integer> queue = new LinkedList();
+        visited[i] = true;
+        queue.add(i);
+
         while (!queue.isEmpty()) {
-            int now_node = queue.poll();
-            for (Edge i : A[now_node]) {
-                int e = i.e;
-                int v = i.value;
-                if (!visited[e]) {
-                    visited[e] = true;
-                    queue.add(e);
-                    distance[e] = distance[now_node] + v;
+            int pollNumber = queue.poll();
+
+            for (Edge edge: A[pollNumber]) {
+                int number = edge.number;
+                int value = edge.value;
+                if (!visited[number]) {
+                    visited[number] = true;
+                    distance[number] = value + distance[pollNumber];
+                    queue.add(number);
                 }
             }
         }
+
     }
 }
 
-
 class Edge {
-    int e;
+    int number;
+
     int value;
 
-    public Edge(int e, int value) {
-        this.e = e;
+    public Edge(int number, int value) {
+        this.number = number;
         this.value = value;
     }
+
 }
