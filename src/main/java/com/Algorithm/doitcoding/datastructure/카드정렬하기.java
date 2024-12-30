@@ -13,13 +13,10 @@ public class 카드정렬하기 {
         for (int i=0;i<N;i++) {
             queue.add(sc.nextInt());
         }
-
         int sum = 0;
-
         while (queue.size()>1) {
             int a = queue.remove();
             int b = queue.remove();
-
             sum += a + b;
             queue.add(a + b);
         }
