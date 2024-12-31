@@ -9,50 +9,52 @@ public class 수묶기 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
-
-        PriorityQueue<Integer> plusPq = new PriorityQueue<>(Collections.reverseOrder());
-        PriorityQueue<Integer> minusPq = new PriorityQueue<>();
+        PriorityQueue<Integer> plusQueue = new PriorityQueue<>(Collections.reverseOrder());
+        PriorityQueue<Integer> minusQueue = new PriorityQueue<>();
+        int sum = 0;
         int one = 0;
         int zero = 0;
 
         for (int i=0;i<N;i++) {
-            int data = sc.nextInt();
-            if (data>1) {
-                plusPq.add(data);
-            } else if (data==1) {
+            int number = sc.nextInt();
+
+            if (number>=2) {
+                plusQueue.add(number);
+            } else if (number==1) {
                 one++;
-            } else if (data ==0) {
+            } else if (number==0) {
                 zero++;
             } else {
-                minusPq.add(data);
+                minusQueue.add(number);
             }
         }
 
-        int sum = 0;
-
-        while (plusPq.size()>1) {
-            int first = plusPq.remove();
-            int second = plusPq.remove();
-            sum += first * second;
-        }
-        if (!plusPq.isEmpty()) {
-            sum += plusPq.remove();
-        }
-
-        while (minusPq.size()>1) {
-            int first = minusPq.remove();
-            int second = minusPq.remove();
-            sum += first * second;
-        }
-        if (!minusPq.isEmpty()) {
-            if (zero == 0) {
-                sum += minusPq.remove();
-            }
+        while (plusQueue.size()>1) {
+            int a = plusQueue.remove();
+            int b = plusQueue.remove();
+            sum += a * b;
         }
 
         sum += one;
+
+        while (minusQueue.size()>1) {
+            int a = minusQueue.remove();
+            int b = minusQueue.remove();
+            sum += a * b;
+        }
+
+        if (!plusQueue.isEmpty()) sum += plusQueue.remove();
+
+        if (!minusQueue.isEmpty()) {
+            if (zero==0) {
+                sum += minusQueue.remove();
+            }
+        }
+
         System.out.println(sum);
 
 
     }
+
+
 }

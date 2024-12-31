@@ -10,28 +10,35 @@ public class 회의실배정 {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
         int[][] A = new int[N][2];
+
         for (int i=0;i<N;i++) {
             A[i][0] = sc.nextInt();
             A[i][1] = sc.nextInt();
         }
+
         Arrays.sort(A, new Comparator<int[]>() {
             @Override
-            public int compare(int[] S, int[] E) {
-                if (S[1]==E[1]) {
-                    return S[0] - E[0];
+            public int compare(int[] a, int[] b) {
+                if (a[1]==b[1]) {
+                    return a[0] - b[0];
                 }
-                return S[1] - E[1];
+                return a[1] - b[1];
             }
         });
 
         int end = 0;
         int count = 0;
+
         for (int i=0;i<N;i++) {
-            if (A[i][0] >= end) {
+            if (end<=A[i][0]) {
                 count++;
                 end = A[i][1];
             }
         }
+
         System.out.println(count);
+
+
+
     }
 }
