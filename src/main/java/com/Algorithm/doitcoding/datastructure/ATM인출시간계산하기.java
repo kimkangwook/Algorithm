@@ -9,41 +9,50 @@ public class ATM인출시간계산하기 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
+
+        int[] arr = new int[N];
+        int[] sum = new int[N];
+
         StringTokenizer st = new StringTokenizer(br.readLine());
-        int[] A = new int[N];
-        int[] S = new int[N];
 
         for (int i=0;i<N;i++) {
-            A[i] = Integer.parseInt(st.nextToken());
+            arr[i] = Integer.parseInt(st.nextToken());
         }
 
         for (int i=1;i<N;i++) {
             int insert_point = i;
-            int insert_value = A[i];
+            int insert_value = arr[i];
 
             for (int j=i-1;j>=0;j--) {
-                if (A[i] > A[j]) {
-                    insert_point = j+1;
+                if (arr[j] < arr[i]) {
+                    insert_point = j + 1;
                     break;
                 }
                 if (j==0) {
                     insert_point = 0;
                 }
             }
-            for (int j=i;j>insert_point;j--) {
-                A[j] = A[j - 1];
+
+            for (int j=i-1;j>=insert_point;j--) {
+                arr[j + 1] = arr[j];
             }
-            A[insert_point] = insert_value;
+            arr[insert_point] = insert_value;
         }
 
-        S[0] = A[0];
-        for (int i=1;i<N;i++) {
-            S[i] = S[i - 1] + A[i];
+        sum[0] = arr[0];
+        for (int i=1;i<arr.length;i++) {
+            sum[i] = sum[i - 1] + arr[i];
         }
-        int sum=0;
-        for (int i=0;i<N;i++) {
-            sum += S[i];
+
+        int S = 0;
+
+        for (int i=0;i<sum.length;i++) {
+            S += sum[i];
         }
-        System.out.println(sum);
+        System.out.println(S);
+
+
+
+
     }
 }

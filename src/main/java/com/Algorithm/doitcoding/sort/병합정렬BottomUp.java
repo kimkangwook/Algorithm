@@ -4,33 +4,36 @@ public class 병합정렬BottomUp {
 
     private static int[] sorted;
 
-    public static void 병합정렬(int[] a) {
+    public static void merge_sort(int[] a) {
         sorted = new int[a.length];
-        병합정렬(a, 0, a.length - 1);
-        sorted=null;
+        merge_sort(a, 0, a.length - 1);
+        sorted = null;
     }
 
-    private static void 병합정렬(int[] a, int left, int right) {
+    private static void merge_sort(int[] a, int left, int right) {
 
-        for (int size=1; size <= right; size += size) {
+        for (int size=1;size<=right;size+=size) {
 
-            for (int l=0;l<=right-size;l += (2*size)) {
-                int low = l;
-                int mid = l + size - 1;
-                int high = Math.min(l + (2 * size) - 1, right);
-                병합(a, low, mid, high);
+
+            for (int i=0;i<=right-size;i+=2 * size) {
+                int l = i;
+                int mid = i + size - 1;
+                int r = Math.min(i + (2 * size) - 1, right);
+                merge_sort(a,l,mid,r);
             }
-        }
 
+        }
     }
 
-    private static void 병합(int[] a, int left, int mid, int right) {
+    private static void merge_sort(int[] a, int left, int mid, int right) {
+
+        int idx = left;
         int l = left;
         int r = mid + 1;
-        int idx = left;
 
-        while (l<=mid && r<=right) {
-            if (a[l]<=a[r]) {
+        while (l<=mid&&r<=right) {
+
+            if (a[l] <= a[r]) {
                 sorted[idx] = a[l];
                 idx++;
                 l++;
@@ -41,7 +44,7 @@ public class 병합정렬BottomUp {
             }
         }
 
-        if (r>right) {
+        if (l<mid) {
             while (l<=mid) {
                 sorted[idx] = a[l];
                 idx++;
@@ -58,8 +61,5 @@ public class 병합정렬BottomUp {
         for (int i=left;i<=right;i++) {
             a[i] = sorted[i];
         }
-
-
-
     }
 }
