@@ -9,19 +9,19 @@ public class 제곱이아닌수 {
         long Min = sc.nextLong();
         long Max = sc.nextLong();
 
-        boolean[] Check = new boolean[(int)(Max -Min) + 1];
+        boolean[] Check = new boolean[(int) (Max - Min + 1)];
 
         for (long i=2;i*i<=Max;i++) {
             long pow = i * i;
             long start_index = Min / pow;
-            if (Min % pow != 0) {
+            if (Min%pow!=0) {
                 start_index++;
             }
+
             for (long j=start_index;j*pow<=Max;j++) {
-                Check[(int) (j * pow - Min)] = true;
+                    Check[(int)(j * pow - Min)] = true;
             }
         }
-
 
         int count = 0;
         for (int i=0;i<Check.length;i++) {
@@ -30,7 +30,6 @@ public class 제곱이아닌수 {
             }
         }
         System.out.println(count);
-
     }
 
 }

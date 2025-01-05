@@ -3,24 +3,25 @@ package com.Algorithm.doitcoding.datastructure;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Scanner;
 
 public class GCD {
 
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        long n = Long.parseLong(br.readLine());
-        long result = n;
-        for (long p = 2; p<=Math.sqrt(n);p++) {
-            if (n%p==0) {
+        Scanner sc = new Scanner(System.in);
+        long N = sc.nextLong();
+        long result = N;
+        for (int p = 2;p<=Math.sqrt(N);p++) {
+            if (N%p==0) {
                 result = result - result / p;
-                while (n%p==0) {
-                    n /= p;
+                while (N%p==0) {
+                    N /= p;
                 }
             }
         }
 
-        if (n>1) {
-            result = result - result / n;
+        if (N>1) {
+            result = result - result / N;
         }
         System.out.println(result);
     }
