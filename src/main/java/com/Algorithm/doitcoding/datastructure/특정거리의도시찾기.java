@@ -7,70 +7,79 @@ import java.util.*;
 
 public class 특정거리의도시찾기 {
 
-    static int[] visited;
+    private static ArrayList<Integer>[] A;
 
-    static ArrayList<Integer>[] A;
+    private static boolean[] visited;
 
-    static ArrayList<Integer> answer;
+    private static int[] count;
 
-    static int N,M,K, X;
+    private static ArrayList<Integer> answer = new ArrayList<>();
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-         N = sc.nextInt();
-         M = sc.nextInt();
-         K = sc.nextInt();
-         X = sc.nextInt();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
 
-        visited = new int[N + 1];
+        int N = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
+        int K = Integer.parseInt(st.nextToken());
+        int X = Integer.parseInt(st.nextToken());
         A = new ArrayList[N + 1];
-        answer = new ArrayList<>();
+        visited = new boolean[N + 1];
+        count = new int[N + 1];
 
         for (int i=1;i<=N;i++) {
-            A[i] = new ArrayList<Integer>();
+            A[i] = new ArrayList<>();
         }
-        for (int i=1;i<=N;i++) {
-            visited[i] = -1;
-        }
+
         for (int i=0;i<M;i++) {
-            int a = sc.nextInt();
-            int b = sc.nextInt();
-            A[a].add(b);
+            st = new StringTokenizer(br.readLine());
+            int s = Integer.parseInt(st.nextToken());
+            int e = Integer.parseInt(st.nextToken());
+
+            A[s].add(e);
         }
+
         BFS(X);
 
         for (int i=1;i<=N;i++) {
-            if (visited[i]==K) {
+            if (count[i]==K) {
                 answer.add(i);
             }
         }
+
         Collections.sort(answer);
 
         if (answer.isEmpty()) {
             System.out.println(-1);
         } else {
-            for (int a: answer) {
+            for (int a :answer) {
                 System.out.println(a);
             }
         }
 
 
 
+
+
+
     }
 
-    public static void BFS(int Node) {
-        Queue<Integer> queue = new LinkedList();
+    private static void BFS(int Node) {
+        Queue<Integer> queue = new LinkedList<>();
         queue.add(Node);
-        visited[Node]++;
+        visited[Node] = true;
+
         while (!queue.isEmpty()) {
-            int now = queue.poll();
-            for (int next: A[now]) {
-                if (visited[next]==-1) {
+            int start = queue.poll();
+            for (int next: A[start]) {
+                if (!visited[next]) {
+                    visited[next] = true;
+                    count[next] = count[start] + 1;
                     queue.add(next);
-                    visited[next] = visited[now] +1;
                 }
             }
         }
+
     }
 
 }
