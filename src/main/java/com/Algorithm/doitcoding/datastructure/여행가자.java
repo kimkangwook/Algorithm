@@ -4,11 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
-public class 집합의표현 {
+public class 여행가자 {
 
     public static int[] arr;
 
@@ -18,24 +17,38 @@ public class 집합의표현 {
         int m = sc.nextInt();
 
         arr = new int[n + 1];
+
         for (int i=1;i<=n;i++) {
             arr[i] = i;
         }
 
-        for (int i=0;i<m;i++) {
-            int check = sc.nextInt();
-            int a = sc.nextInt();
-            int b = sc.nextInt();
-
-            if (check==1) {
-                if (checkSame(a, b)) {
-                    System.out.println("YES");
-                } else {
-                    System.out.println("NO");
+        for (int i=1;i<=n;i++) {
+            for (int j=1;j<=n;j++) {
+                int a = sc.nextInt();
+                if (a==1) {
+                    union(i, j);
                 }
-            } else {
-                union(a, b);
             }
+        }
+
+        boolean answer = true;
+        int a=0;
+
+        for (int i=0;i<m;i++) {
+            int city = sc.nextInt();
+            if (i==0) {
+                a = find(city);
+            } else {
+                if (a!=find(city)) {
+                    answer = false;
+                    System.out.println("NO");
+                    break;
+                }
+            }
+        }
+
+        if (answer) {
+            System.out.println("YES");
         }
     }
 
@@ -63,8 +76,5 @@ public class 집합의표현 {
         }
         return false;
     }
-
-
-
 
 }
