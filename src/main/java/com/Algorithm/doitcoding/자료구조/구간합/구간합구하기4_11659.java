@@ -1,4 +1,4 @@
-package com.Algorithm.doitcoding.자료구조;
+package com.Algorithm.doitcoding.자료구조.구간합;
 
 import java.io.BufferedReader;
 import java.io.IOException;
