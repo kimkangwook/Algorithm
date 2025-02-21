@@ -10,34 +10,30 @@ public class 나머지합_10986 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
+        long[] C = new long[M];
+        long sum = 0;
+        long count = 0;
 
         st = new StringTokenizer(br.readLine());
-        long[] sum = new long[N + 1];
-        long[] C = new long[M];
-        long answer = 0;
 
-        for (int i=1;i<=N;i++) {
+        for (int i=0;i<N;i++) {
             long number = Long.parseLong(st.nextToken());
-            sum[i] = sum[i - 1] + number;
-        }
-
-        for (int i=1;i<=N;i++) {
-            int remainder = (int)(sum[i] % M);
+            sum = sum + number;
+            int remainder = (int) (sum % M);
             if (remainder==0) {
-                answer++;
+                count++;
             }
             C[remainder]++;
         }
 
         for (int i=0;i<M;i++) {
             if (C[i]>1) {
-                answer += (C[i] * (C[i] - 1) / 2);
+                count = count + (C[i] * (C[i] - 1)) / 2;
             }
         }
-        System.out.println(answer);
 
+        System.out.println(count);
     }
 }

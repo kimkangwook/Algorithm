@@ -12,8 +12,8 @@ public class 주몽_1940 {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
         int M = Integer.parseInt(br.readLine());
-        int[] array = new int[N];
         StringTokenizer st = new StringTokenizer(br.readLine());
+        int[] array = new int[N];
 
         for (int i=0;i<N;i++) {
             array[i] = Integer.parseInt(st.nextToken());
@@ -24,18 +24,19 @@ public class 주몽_1940 {
         int start_index = 0;
         int end_index = N - 1;
         int count = 0;
+
         while (start_index<end_index) {
-            if (array[start_index] + array[end_index] == M) {
+            if (array[start_index]+array[end_index] == M) {
                 count++;
                 start_index++;
                 end_index--;
-            } else if (array[start_index] + array[end_index] > M) {
+            } else if (array[start_index]+array[end_index] > M) {
                 end_index--;
             } else {
                 start_index++;
             }
         }
-        System.out.println(count);
 
+        System.out.println(count);
     }
 }
