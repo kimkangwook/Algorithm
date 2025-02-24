@@ -8,20 +8,18 @@ import java.util.StringTokenizer;
 
 public class 연결요소의개수_11724 {
 
-    public static ArrayList<Integer>[] arrayLists;
-
     public static boolean[] visited;
 
+    public static ArrayList<Integer>[] arrayList;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
-        arrayLists = new ArrayList[N+1];
         visited = new boolean[N+1];
-        int count = 0;
+        arrayList = new ArrayList[N + 1];
         for (int i=1;i<=N;i++) {
-            arrayLists[i] = new ArrayList<Integer>();
+            arrayList[i] = new ArrayList<>();
         }
 
         for (int i=0;i<M;i++) {
@@ -29,9 +27,10 @@ public class 연결요소의개수_11724 {
             int start = Integer.parseInt(st.nextToken());
             int end = Integer.parseInt(st.nextToken());
 
-            arrayLists[start].add(end);
-            arrayLists[end].add(start);
+            arrayList[start].add(end);
+            arrayList[end].add(start);
         }
+        int count = 0;
 
         for (int i=1;i<=N;i++) {
             if (!visited[i]) {
@@ -46,12 +45,13 @@ public class 연결요소의개수_11724 {
         if (visited[number]) {
             return;
         }
+
         visited[number] = true;
-        for (int i : arrayLists[number]) {
-            if (!visited[i]) {
-                DFS(i);
+        for (int next : arrayList[number]) {
+            if (!visited[next]) {
+                DFS(next);
             }
         }
-
     }
+
 }
