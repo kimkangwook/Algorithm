@@ -1,4 +1,4 @@
-package com.Algorithm.doitcoding.탐색;
+package com.Algorithm.doitcoding.탐색.DFS;
 
 import java.io.BufferedReader;
 import java.io.IOException;
