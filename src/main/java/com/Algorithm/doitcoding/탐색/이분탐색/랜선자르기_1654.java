@@ -10,39 +10,36 @@ public class 랜선자르기_1654 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
+        int K = Integer.parseInt(st.nextToken());
         int N = Integer.parseInt(st.nextToken());
-        int M = Integer.parseInt(st.nextToken());
-        long[] sticks = new long[N];
+        long[] lines = new long[K];
         long max = 0;
-        st = new StringTokenizer(br.readLine());
-        for (int i=0;i<N;i++) {
-            sticks[i] = Long.parseLong(st.nextToken());
-            if (max<sticks[i])
-                max = sticks[i];
+        for (int i=0;i<K;i++) {
+            lines[i] = Long.parseLong(br.readLine());
+            if (max<lines[i])
+                max = lines[i];
         }
 
-        System.out.println(upperBound(max, sticks, M));
-
+        System.out.println(upperBound(lines,max,N));
     }
 
-    public static long upperBound(long max, long[] sticks, int number) {
+    public static long upperBound(long[] lines, long max, long N) {
         long low = 0;
         long high = max + 1;
 
         while (low<high) {
             long mid = (low + high) / 2;
             long sum = 0;
-            for (int i=0;i<sticks.length;i++) {
-                if (sticks[i]>mid)
-                sum += (sticks[i] - mid);
+            for (long length: lines) {
+                sum += (length / mid);
             }
 
-            if (number<=sum) {
-                low = mid+1;
+            if (N<=sum) {
+                low = mid + 1;
             } else {
                 high = mid;
             }
         }
-        return low-1;
+        return low - 1;
     }
 }

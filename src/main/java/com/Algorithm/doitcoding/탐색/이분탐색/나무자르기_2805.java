@@ -10,7 +10,6 @@ public class 나무자르기_2805 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-
         int N = Integer.parseInt(st.nextToken());
         long M = Long.parseLong(st.nextToken());
         long[] trees = new long[N];
@@ -23,32 +22,32 @@ public class 나무자르기_2805 {
             }
         }
 
-        System.out.println(upperBound(max, trees, M));
-
+        System.out.println(upperBound(trees, max, M));
 
 
     }
 
-    public static long upperBound(long max, long[] trees, long number) {
-        long lo = 0;
+    public static long upperBound(long[] trees, long max, long M) {
+        long low = 0;
         long high = max + 1;
 
-        while (lo<high) {
-            long mid = (lo + high) / 2;
-            long sum = 0;
+        while (low<high) {
+            long mid = (low + high) / 2;
 
-            for (int i=0;i<trees.length;i++) {
-                if (trees[i]>number)
-                    sum += (trees[i] % mid);
+            long sum = 0;
+            for (long number:trees) {
+                if (number>mid)
+                    sum += (number - mid);
             }
 
-            if (number<=sum) {
-                lo = mid + 1;
+            if (M<=sum) {
+                low = mid + 1;
             } else {
                 high = mid;
             }
         }
-
-        return lo - 1;
+        return low - 1;
     }
+
+
 }
