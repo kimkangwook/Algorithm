@@ -7,6 +7,12 @@ import java.util.StringTokenizer;
 
 public class DNA비밀번호_12891 {
 
+    public static int checkArr;
+
+    public static int[] curArr;
+
+    public static int[] standardArr;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -14,59 +20,93 @@ public class DNA비밀번호_12891 {
         int P = Integer.parseInt(st.nextToken());
 
         String text = br.readLine();
-        String first_text = text.substring(0, P);
-        int[] ABCD = new int[4];
-        for (int i=0;i<first_text.length();i++) {
-            char c = first_text.charAt(i);
-            if (c=='A') {
-                ABCD[0]++;
-            } else if (c=='C') {
-                ABCD[1]++;
-            } else if (c=='G') {
-                ABCD[2]++;
-            } else if (c=='T') {
-                ABCD[3]++;
-            }
-        }
-
         st = new StringTokenizer(br.readLine());
-        int[] need_ABCD = new int[4];
+        standardArr = new int[4];
+        curArr = new int[4];
         for (int i=0;i<4;i++) {
-            need_ABCD[i] = Integer.parseInt(st.nextToken());
+            standardArr[i] = Integer.parseInt(st.nextToken());
         }
+        checkArr = 0;
+
+        String curText = text.substring(0, P);
+        for (int i=0;i<curText.length();i++) {
+            char c = curText.charAt(i);
+            if (c=='A') {
+                curArr[0]++;
+            } else if (c=='C') {
+                curArr[1]++;
+            } else if (c=='G') {
+                curArr[2]++;
+            } else if (c=='T') {
+                curArr[3]++;
+            }
+        }
+
+        for (int i=0;i<4;i++) {
+            if (curArr[i]>=standardArr[i]) checkArr++;
+        }
+
         int count = 0;
-
-        if (ABCD[0]>=need_ABCD[0] && ABCD[1]>=need_ABCD[1] && ABCD[2]>=need_ABCD[2] && ABCD[3]>=need_ABCD[3]) count++;
-
-
-
-        for (int i=1;i<=text.length()-P;i++) {
-            char minus = text.charAt(i - 1);
-            char plus = text.charAt(i - 1 + P);
-
-            if (minus=='A') {
-                if (ABCD[0]!=0) ABCD[0]--;
-            } else if (minus=='C') {
-                if (ABCD[1]!=0) ABCD[1]--;
-            } else if (minus=='G') {
-                if (ABCD[2]!=0) ABCD[2]--;
-            } else if (minus=='T') {
-                if (ABCD[3]!=0) ABCD[3]--;
-            }
-
-            if (plus=='A') {
-                ABCD[0]++;
-            } else if (plus=='C') {
-                ABCD[1]++;
-            } else if (plus=='G') {
-                ABCD[2]++;
-            } else if (plus=='T') {
-                ABCD[3]++;
-            }
-
-            if (ABCD[0]>=need_ABCD[0] && ABCD[1]>=need_ABCD[1] && ABCD[2]>=need_ABCD[2] && ABCD[3]>=need_ABCD[3]) count++;
+        if (checkArr==4) {
+            count++;
         }
-        System.out.println(count);
+        for (int i=1;i<=S-P;i++) {
+            remove(text.charAt(i-1));
+            add(text.charAt(i+P-1));
 
+            if (checkArr==4) {
+                count++;
+            }
+        }
+
+        System.out.println(count);
+    }
+
+    public static void add(char c) {
+        if (c=='A') {
+            if (curArr[0]==(standardArr[0]-1)) {
+                checkArr++;
+            }
+            curArr[0]++;
+        } else if (c=='C') {
+            if (curArr[1]==(standardArr[1]-1)) {
+                checkArr++;
+            }
+            curArr[1]++;
+        } else if (c=='G') {
+            if (curArr[2]==(standardArr[2]-1)) {
+                checkArr++;
+            }
+            curArr[2]++;
+        } else if (c=='T') {
+            if (curArr[3]==(standardArr[3]-1)) {
+                checkArr++;
+            }
+            curArr[3]++;
+        }
+    }
+
+    public static void remove(char c) {
+        if (c=='A') {
+            if (curArr[0]==(standardArr[0])) {
+                checkArr--;
+            }
+            curArr[0]--;
+        } else if (c=='C') {
+            if (curArr[1]==(standardArr[1])) {
+                checkArr--;
+            }
+            curArr[1]--;
+        } else if (c=='G') {
+            if (curArr[2]==(standardArr[2])) {
+                checkArr--;
+            }
+            curArr[2]--;
+        } else if (c=='T') {
+            if (curArr[3]==(standardArr[3])) {
+                checkArr--;
+            }
+            curArr[3]--;
+        }
     }
 }
