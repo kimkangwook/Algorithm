@@ -4,9 +4,7 @@ package com.Algorithm.doitcoding.자료구조.슬라이딩윈도우;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class 최솟값찾기_11003 {
 
@@ -27,17 +25,8 @@ public class 최솟값찾기_11003 {
 
             // 큐에 집어넣기전에 최근 큐 빼내서 number 비교
             // number가 작을 시 이전 Board 삭제 후 그 이전 Board 빼내서 number 비교 (반복)
-            while (true) {
-                if (queue.isEmpty()) {
-                    break;
-                }
-
-                Board prevBoard = queue.peekLast();
-                if (prevBoard.getNumber() >= newBoard.getNumber()) {
+            while (!queue.isEmpty() && queue.peekLast().getNumber()>=newBoard.getNumber()) {
                     queue.removeLast();
-                } else {
-                    break;
-                }
             }
 
             // 큐 삽입 시 맨 처음 큐의 index와 비교해서 비교해서 L이상 차이나면 처음 Board 삭제
